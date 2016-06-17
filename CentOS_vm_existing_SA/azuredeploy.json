@@ -57,23 +57,14 @@
   "resources": [
     {
       "apiVersion": "[variables('apiVersion')]",
-      "type": "Microsoft.Network/virtualNetworks",
-      "name": "[variables('virtualNetworkName')]",
+      "type": "Microsoft.Network/publicIPAddresses",
+      "name": "[variables('publicIPAddressName')]",
       "location": "[resourceGroup().location]",
       "properties": {
-        "addressSpace": {
-          "addressPrefixes": [
-            "[variables('addressPrefix')]"
-          ]
-        },
-        "subnets": [
-          {
-            "name": "[variables('subnetName')]",
-            "properties": {
-              "addressPrefix": "[variables('subnetPrefix')]"
-            }
-          }
-        ]
+        "publicIPAllocationMethod": "[variables('publicIPAddressType')]",
+        "dnsSettings": {
+          "domainNameLabel": "[parameters('dnsLabelPrefix')]"
+        }
       }
     },
     {
