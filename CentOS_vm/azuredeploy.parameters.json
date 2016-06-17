@@ -9,7 +9,7 @@
       "value": "abc@123456"
     },
     "dnsLabelPrefix": {
-      "value": "hwtvm01"
+      "value": "hw2arm03vm01"
     },
     "CentOSVersion": {
       "value": "6.5"
