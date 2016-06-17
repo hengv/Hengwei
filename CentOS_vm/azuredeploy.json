@@ -34,7 +34,7 @@
     }
   },
   "variables": {
-    "storageAccountName": "hw2sa01",
+    "storageAccountName": "hw2sa02",
     "dataDisk1VhdName": "datadisk1",
     "imagePublisher": "OpenLogic",
     "imageOffer": "CentOS",
