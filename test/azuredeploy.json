@@ -1,0 +1,68 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "adminUsername": {
+      "type": "string",
+      "metadata": {
+        "description": "User name for the Virtual Machine."
+      }
+    },
+    "adminPassword": {
+      "type": "securestring",
+      "metadata": {
+        "description": "Password for the Virtual Machine."
+      }
+    },
+    "dnsLabelPrefix": {
+      "type": "string",
+      "metadata": {
+        "description": "Unique DNS Name for the Public IP used to access the Virtual Machine."
+      }
+    },
+    "CentOSVersion": {
+      "type": "string",
+      "defaultValue": "6.5",
+      "allowedValues": [
+        "6.5",
+        "6.6",
+        "7.0"
+      ],
+      "metadata": {
+        "description": "The CentOS version for the VM. This will pick a fully patched image of this given CentOStu version. Allowed values: 6.5, 6.6, 7.0."
+      }
+    }
+  },
+  "variables": {
+    "storageAccountName": "hw11sa01",
+    "dataDisk1VhdName": "hw11datadisk01",
+    "imagePublisher": "OpenLogic",
+    "imageOffer": "CentOS",
+    "OSDiskName": "hw11osdisk01",
+    "nicName": "hw11nic01",
+    "addressPrefix": "172.18.0.0/16",
+    "subnetName": "Subnet-1",
+    "subnetPrefix": "172.18.1.0/24",
+    "storageAccountType": "Standard_LRS",
+    "publicIPAddressName": "hw11pip01",
+    "publicIPAddressType": "Dynamic",
+    "vmStorageAccountContainerName": "vhds",
+    "vmName": "hw11vm01",
+    "vmSize": "Standard_A1",
+    "virtualNetworkName": "hw11vnet01",
+    "vnetID": "[resourceId('Microsoft.Network/virtualNetworks',variables('virtualNetworkName'))]",
+    "subnetRef": "[concat(variables('vnetID'),'/subnets/',variables('subnetName'))]",
+    "apiVersion": "2015-06-15"
+  },
+
+  "outputs": {
+     "hostname": {
+         "type": "string",
+         "value": "[concat(parameters('dnsLabelPrefix'), '.', resourceGroup().name, '.cloudapp.chinacloudapi.cn')]"
+     },
+    "sshCommand": {
+      "type": "string",
+      "value": "[concat('ssh ', parameters('adminUsername'), '@', parameters('dnsLabelPrefix'), '.', resourceGroup().location, '.cloudapp.chinacloudapi.cn')]"
+    }
+  }
+}
