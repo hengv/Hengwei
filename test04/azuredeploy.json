@@ -128,10 +128,7 @@
       "type": "Microsoft.Compute/virtualMachines",
       "name": "[variables('vmName')]",
       "location": "[resourceGroup().location]",
-      "dependsOn": [
-        "[concat('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]",
-        "[concat('Microsoft.Network/networkInterfaces/', variables('nicName'))]"
-      ],
+
       "properties": {
         "hardwareProfile": {
           "vmSize": "[variables('vmSize')]"
@@ -177,6 +174,7 @@
         }
       }
     }
+
 ],
   "outputs": {
     "storageAccountName":{
@@ -251,10 +249,6 @@
       "type": "string",
       "value":  "[variables('apiVersion')]"
     },
-    "storageaccount": {
-          "type": "string",
-          "value": "[concat('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]"
-      },
      "hostname": {
          "type": "string",
          "value": "[concat(parameters('dnsLabelPrefix'), '.', resourceGroup().name, '.cloudapp.chinacloudapi.cn')]"

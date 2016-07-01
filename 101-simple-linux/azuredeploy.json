@@ -26,30 +26,31 @@
       "allowedValues": [
         "6.5",
         "6.6",
-        "7.0"
+        "7.0",
+        "7.1"
       ],
       "metadata": {
-        "description": "The CentOS version for the VM. This will pick a fully patched image of this given CentOStu version. Allowed values: 6.5, 6.6, 7.0."
+        "description": "The CentOS version for the VM. This will pick a fully patched image of this given CentOS version. Allowed values: 6.5, 6.6, 7.0, 7.1."
       }
     }
   },
   "variables": {
-    "storageAccountName": "[concat(resourceGroup().name,'sa01')]",
-    "storageAccountType": "Standard_LRS",
-    "vmName": "[concat(resourceGroup().name,parameters('dnsLabelPrefix'))]",
-    "OSDiskName": "[concat(variables('vmName'),'osdisk')]",
-    "dataDisk1VhdName": "[concat(variables('vmName'),'datadisk1')]",
+    "storageAccountName": "[concat(uniquestring(resourceGroup().id), 'salinuxvm')]",
+    "dataDisk1VhdName": "datadisk1",
     "imagePublisher": "OpenLogic",
     "imageOffer": "CentOS",
-    "nicName": "[concat(variables('vmName'),'nic01')]",
-    "addressPrefix": "172.18.0.0/16",
-    "subnetName": "Subnet-1",
-    "subnetPrefix": "172.18.1.0/24",
-    "publicIPAddressName": "[concat(variables('vmName'),'pip01')]",
+    "OSDiskName": "osdiskforlinuxsimple",
+    "nicName": "myVMNic",
+    "addressPrefix": "10.0.0.0/16",
+    "subnetName": "Subnet",
+    "subnetPrefix": "10.0.0.0/24",
+    "storageAccountType": "Standard_LRS",
+    "publicIPAddressName": "myPublicIP",
     "publicIPAddressType": "Dynamic",
     "vmStorageAccountContainerName": "vhds",
+    "vmName": "MyCentOSVM",
     "vmSize": "Standard_A1",
-    "virtualNetworkName": "[concat(resourceGroup().name,'vnet01')]",
+    "virtualNetworkName": "MyVNET",
     "vnetID": "[resourceId('Microsoft.Network/virtualNetworks',variables('virtualNetworkName'))]",
     "subnetRef": "[concat(variables('vnetID'),'/subnets/',variables('subnetName'))]",
     "apiVersion": "2015-06-15"
@@ -151,7 +152,7 @@
           "osDisk": {
             "name": "osdisk",
             "vhd": {
-              "uri": "[concat('http://',variables('storageAccountName'),'.blob.core.chinacloudapi.cn/',variables('vmStorageAccountContainerName'),'/',variables('OSDiskName'),'.vhd')]"
+              "uri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('storageAccountName')), variables('apiVersion')).primaryEndpoints.blob, variables('vmStorageAccountContainerName'),'/',variables('OSDiskName'),'.vhd')]"
             },
             "caching": "ReadWrite",
             "createOption": "FromImage"
@@ -162,7 +163,7 @@
               "diskSizeGB": "100",
               "lun": 0,
               "vhd": {
-                "uri": "[concat('http://',variables('storageAccountName'),'.blob.core.chinacloudapi.cn/',variables('vmStorageAccountContainerName'),'/',variables('dataDisk1VhdName'),'.vhd')]"
+                "uri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('storageAccountName')), variables('apiVersion')).primaryEndpoints.blob, variables('vmStorageAccountContainerName'),'/',variables('dataDisk1VhdName'),'.vhd')]"
               },
               "createOption": "Empty"
             }
@@ -174,94 +175,24 @@
               "id": "[resourceId('Microsoft.Network/networkInterfaces',variables('nicName'))]"
             }
           ]
+        },
+        "diagnosticsProfile": {
+          "bootDiagnostics": {
+            "enabled": "true",
+            "storageUri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('storageAccountName')), variables('apiVersion')).primaryEndpoints.blob)]"
+          }
         }
       }
     }
-],
+  ],
   "outputs": {
-    "storageAccountName":{
-      "type": "string",
-      "value":  "[variables('storageAccountName')]"
-    },
-    "storageAccountType":{
-      "type": "string",
-      "value":  "[variables('storageAccountType')]"
-    },
-    "vmName":{
-      "type": "string",
-      "value":  "[variables('vmName')]"
-    },
-    "OSDiskName":{
-      "type": "string",
-      "value":  "[variables('OSDiskName')]"
-    },
-    "dataDisk1VhdName":{
-      "type": "string",
-      "value":  "[variables('dataDisk1VhdName')]"
-    },
-    "imagePublisher":{
-      "type": "string",
-      "value":  "[variables('imagePublisher')]"
-    },
-    "imageOffer":{
-      "type": "string",
-      "value":  "[variables('imageOffer')]"
-    },
-    "nicName":{
-      "type": "string",
-      "value":  "[variables('nicName')]"
-    },
-    "addressPrefix":{
-      "type": "string",
-      "value":  "[variables('addressPrefix')]"
-    },
-    "subnetName":{
-      "type": "string",
-      "value":  "[variables('subnetName')]"
-    },
-    "subnetPrefix":{
-      "type": "string",
-      "value":  "[variables('subnetPrefix')]"
-    },
-    "publicIPAddressName":{
-      "type": "string",
-      "value":  "[variables('publicIPAddressName')]"
-    },
-    "publicIPAddressType":{
-      "type": "string",
-      "value":  "[variables('publicIPAddressType')]"
-    },
-    "vmStorageAccountContainerName":{
-      "type": "string",
-      "value":  "[variables('vmStorageAccountContainerName')]"
-    },
-    "virtualNetworkName":{
-      "type": "string",
-      "value":  "[variables('virtualNetworkName')]"
-    },
-    "vnetID":{
-      "type": "string",
-      "value":  "[variables('vnetID')]"
-    },
-    "subnetRef":{
-      "type": "string",
-      "value":  "[variables('subnetRef')]"
-    },
-    "apiVersion":{
-      "type": "string",
-      "value":  "[variables('apiVersion')]"
-    },
-    "storageaccount": {
-          "type": "string",
-          "value": "[concat('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]"
-      },
      "hostname": {
          "type": "string",
-         "value": "[concat(parameters('dnsLabelPrefix'), '.', resourceGroup().name, '.cloudapp.chinacloudapi.cn')]"
+         "value": "[concat(parameters('dnsLabelPrefix'), '.', resourceGroup().location, '.cloudapp.azure.com')]"
      },
     "sshCommand": {
       "type": "string",
-      "value": "[concat('ssh ', parameters('adminUsername'), '@', parameters('dnsLabelPrefix'), '.', resourceGroup().location, '.cloudapp.chinacloudapi.cn')]"
+      "value": "[concat('ssh ', parameters('adminUsername'), '@', parameters('dnsLabelPrefix'), '.', resourceGroup().location, '.cloudapp.azure.com')]"
     }
   }
 }

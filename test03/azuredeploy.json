@@ -177,6 +177,7 @@
         }
       }
     }
+
 ],
   "outputs": {
     "storageAccountName":{
@@ -251,10 +252,6 @@
       "type": "string",
       "value":  "[variables('apiVersion')]"
     },
-    "storageaccount": {
-          "type": "string",
-          "value": "[concat('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]"
-      },
      "hostname": {
          "type": "string",
          "value": "[concat(parameters('dnsLabelPrefix'), '.', resourceGroup().name, '.cloudapp.chinacloudapi.cn')]"
