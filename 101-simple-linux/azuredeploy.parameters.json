@@ -11,7 +11,7 @@
     "dnsLabelPrefix": {
       "value": "hwvm"
     },
-    "ubuntuOSVersion": {
+    "CentOSVersion": {
       "value": "6.5"
     }
   }
