@@ -63,7 +63,7 @@
       "properties": {
         "accountType": "[variables('storageAccountType')]"
       }
-    },
+    }
 ],
   "outputs": {
      "hostname": {
