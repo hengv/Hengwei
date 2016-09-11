@@ -5,7 +5,7 @@
     "adminUsername": {
       "type": "string",
       "metadata": {
-        "description": "this is for xiaoyang."
+        "description": "User name for the Virtual Machine."
       }
     },
     "adminPassword": {
