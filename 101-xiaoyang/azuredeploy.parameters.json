@@ -3,13 +3,13 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "adminUsername": {
-      "value": "hengwei"
+      "value": "abc"
     },
     "adminPassword": {
       "value": "abc@123456"
     },
     "dnsLabelPrefix": {
-      "value": "hwvm"
+      "value": "abc"
     },
     "CentOSVersion": {
       "value": "6.5"
