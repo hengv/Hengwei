@@ -1,0 +1,39 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "customVmName": {
+      "value": "hwcsr1k"
+    },
+    "userImageStorageAccountName": {
+      "value": "hw01sa01"
+    },
+    "adminUsername": {
+      "value": "hengwei"
+    },
+    "adminPassword": {
+      "value": "abc@12345678"
+    },
+    "osDiskVhdUri": {
+      "value": "https://hw01sa01.blob.core.chinacloudapi.cn/vhd/hwcsco1k01-disk-6qhr27ecitlia.vhd"
+    },
+    "dnsLabelPrefix": {
+      "value": "hwcsr1k"
+    },
+    "osType": {
+      "value": "Linux"
+    },
+    "vmSize": {
+      "value": "Standard_D2"
+    },
+    "newOrExistingVnet": {
+      "value": "existing"
+    },
+    "newOrExistingVnetName": {
+      "value": "hw01vnet"
+    },
+    "newOrExistingSubnetName": {
+      "value": "Subnet-1"
+    }
+  }
+}
