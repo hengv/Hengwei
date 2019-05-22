@@ -1,0 +1,75 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "virtualNetworkName": {
+      "value": "hwcsvnet"
+    },
+    "virtualNetworkExistingRGName": {
+      "value": "hwcs"
+    },
+    "virtualNetworkAddressPrefix": {
+      "value": "10.1.0.0/16"
+    },
+    "Subnet1Prefix": {
+      "value": "10.1.0.0/24"
+    },
+    "Subnet1Name": {
+      "value": "subnets/Subnet-1"
+    },
+    "subnet1StartAddress": {
+      "value": "10.1.1.4"
+    },
+    "Subnet2Prefix": {
+      "value": "10.1.1.0/24"
+    },
+    "Subnet2Name": {
+      "value": "subnets/Subnet-2"
+    },
+    "adminUsername": {
+      "value": "hengwei"
+    },
+    "adminPassword": {
+      "value": "abc@12345678"
+    },
+    "sshPublicKey": {
+      "value": "GEN-SSH-PUB-KEY"
+    },
+    "authenticationType": {
+      "value": "password"
+    },
+    "vmName": {
+      "value": "hwcs1"
+    },
+    "newStorageAccountName": {
+      "value": "hwcssa"
+    },
+    "storageAccountType": {
+      "value": "Standard_LRS"
+    },
+    "storageAccountNewOrExisting": {
+      "value": "existing"
+    },
+    "storageAccountExistingRG": {
+      "value": "hwcs"
+    },
+    "publicIPAddressName": {
+      "value": "hwcspip01"
+    },
+    "publicIPDnsName": {
+      "value": "hwcsip"
+    },
+    "publicIPNewOrExisting": {
+      "value": "new"
+    },
+    "publicIPExistingRGName": {
+      "value": "hwcsco"
+    },
+    "vnetNewOrExisting": {
+      "value": "existing"
+    },
+    "baseUrl": {
+      "value": "https://raw.githubusercontent.com/hengv/Hengwei/Azure/cisco-csr-1000v"
+    }
+  }
+}
